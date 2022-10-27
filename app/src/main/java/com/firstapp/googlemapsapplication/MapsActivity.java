@@ -44,7 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        locationRequest= com.google.android.gms.location.LocationRequest.create();
+        locationRequest= LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(3000);
@@ -57,7 +57,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
                 try {
                     LocationSettingsResponse response=task.getResult(ApiException.class);
-                    Toast.makeText(MapsActivity.this, "location already enabled", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MapsActivity.this, "location already enabled", Toast.LENGTH_SHORT).show();
                 } catch (ApiException e) {
 //                    e.printStackTrace();
                     if (e.getStatusCode()== LocationSettingsStatusCodes.RESOLUTION_REQUIRED)

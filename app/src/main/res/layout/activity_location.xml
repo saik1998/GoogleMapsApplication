@@ -43,4 +43,12 @@
         android:layout_gravity="center"
         android:id="@+id/progressBar"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:text="next"
+        android:onClick="next"/>
+
+
 </FrameLayout>

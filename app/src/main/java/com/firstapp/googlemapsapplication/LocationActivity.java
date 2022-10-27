@@ -61,7 +61,7 @@ public class LocationActivity extends AppCompatActivity {
             if (ContextCompat.checkSelfPermission(LocationActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(LocationActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 101);
             } else {
-//                getPersentLoc();
+                getPersentLoc();
                 getPersentLoc2();
             }
         }
@@ -72,7 +72,7 @@ public class LocationActivity extends AppCompatActivity {
             switch (requestCode) {
                 case 101:
                     if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                        getPersentLoc();
+                        getPersentLoc();
                         getPersentLoc2();
                     } else {
                         Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
@@ -147,46 +147,50 @@ public class LocationActivity extends AppCompatActivity {
             }
         }
 
-//        private void getPersentLoc() {
-//
-//            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-//
-//                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                    return;
-//                }
-//                fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
-//                    @Override
-//                    public void onSuccess(Location location) {
-//                        progressBar.setVisibility(View.GONE);
-//                        if(location!=null)
-//                        {
-//                            Log.d("TAG", "onSuccess: "+location.getLatitude()+location.getLongitude());
-//                            latitude.setText(""+location.getLatitude());
-//                            longtitude.setText(""+location.getLongitude());
-//                        }
-//                        else
-//                        {
-//                            latitude.setText("null");
-//                            longtitude.setText("null");
-//
-//                        }
-//
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.d("TAG", "onFailure: "+e.getLocalizedMessage());
-//                        progressBar.setVisibility(View.GONE);
-//                        Toast.makeText(LocationActivity.this, ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//            }
-//            else
-//            {
-//                Toast.makeText(this, "Please on the Gps", Toast.LENGTH_SHORT).show();
-//            }
-//        }
+        private void getPersentLoc() {
 
+            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        progressBar.setVisibility(View.GONE);
+                        if(location!=null)
+                        {
+                            Log.d("TAG", "onSuccess: "+location.getLatitude()+location.getLongitude());
+                            latitude.setText(""+location.getLatitude());
+                            longtitude.setText(""+location.getLongitude());
+                        }
+                        else
+                        {
+                            latitude.setText("null");
+                            longtitude.setText("null");
+
+                        }
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("TAG", "onFailure: "+e.getLocalizedMessage());
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(LocationActivity.this, ""+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+            else
+            {
+                Toast.makeText(this, "Please on the Gps", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    public void next(View view) {
+        Intent intent=new Intent(LocationActivity.this,MapsActivity.class);
+        startActivity(intent);
+    }
 }
